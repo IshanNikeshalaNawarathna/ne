@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface NeRepository {
     NeModel save(NeModel neModel);
     NeModel update(UUID id, NeModel neModel);
-    NeModel delete(UUID id);
+    void delete(UUID id);
     List<NeModel> findAll();
 }
