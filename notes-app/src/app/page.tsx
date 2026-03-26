@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { NotesGrid } from "@/components/notes/NotesGrid";
 import { NoteModal } from "@/components/notes/NoteModal";
-import { Note } from "@/components/notes/NoteCard";
-import { NoteService } from "@/services/api";
+import { Note } from "@/types";
+import { createNote, getNotes, updateNote, deleteNote} from "@/services/api";
 import { Navbar } from "@/components/layout/Navbar";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
   const fetchNotes = async () => {
     setIsLoading(true);
     try {
-      const data = await NoteService.getNotes();
+      const data = await getNotes();
       setNotes(data);
     } catch (e) {
       console.error(e);
@@ -40,9 +40,9 @@ export default function Home() {
     setIsLoading(true);
     try {
       if (selectedNote) {
-        await NoteService.updateNote(note.id as string, note);
+        await updateNote(note.id as string, note);
       } else {
-        await NoteService.createNote(note);
+        await createNote(note);
       }
       await fetchNotes();
     } finally {
@@ -54,7 +54,7 @@ export default function Home() {
     setIsModalOpen(false);
     setIsLoading(true);
     try {
-      await NoteService.deleteNote(id);
+      await deleteNote(id);
       await fetchNotes();
     } finally {
       setIsLoading(false);

@@ -6,8 +6,7 @@ import lk.note.ne.domain.usecase.NeAllUseCase;
 import lk.note.ne.domain.usecase.NeDeleteUseCase;
 import lk.note.ne.domain.usecase.NeSaveUseCase;
 import lk.note.ne.domain.usecase.NeUpdateUseCase;
-import lk.note.ne.persentation.dto.NeRequest;
-import lk.note.ne.persentation.dto.NeResponse;
+import lk.note.ne.persentation.dto.Note;
 import lk.note.ne.persentation.mapper.NeDtoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/ne")
 @RequiredArgsConstructor
@@ -31,7 +31,8 @@ public class NeController {
 
 
     @PostMapping
-    public ResponseEntity<NeResponse> saveNote(@RequestBody NeRequest neRequest) {
+    public ResponseEntity<Note> saveNote(@RequestBody Note neRequest) {
+        System.out.println("note " + neRequest);
         NeModel model = mapper.toModel(neRequest);
         return new ResponseEntity<>(mapper.toDto(save.save(model)), HttpStatus.OK);
     }
@@ -43,15 +44,15 @@ public class NeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NeResponse> updateNote(@RequestBody NeRequest neRequest, @PathVariable UUID id) {
+    public ResponseEntity<Note> updateNote(@RequestBody Note neRequest, @PathVariable UUID id) {
         NeModel model = mapper.toModel(neRequest);
         return ResponseEntity.ok(mapper.toDto(update.update(id, model)));
     }
 
     @GetMapping
-    public ResponseEntity<List<NeResponse>> getAllNotes() {
+    public ResponseEntity<List<Note>> getAllNotes() {
         List<NeModel> all = list.findAll();
-        List<NeResponse> allList = all.stream().map(neModel -> mapper.toDto(neModel)).toList();
+        List<Note> allList = all.stream().map(neModel -> mapper.toDto(neModel)).toList();
         return ResponseEntity.ok(allList);
     }
 

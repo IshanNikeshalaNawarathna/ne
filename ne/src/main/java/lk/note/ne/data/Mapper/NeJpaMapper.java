@@ -8,6 +8,6 @@ import org.mapstruct.Mapper;
 public interface NeJpaMapper {
 
     NeModel toModel(NeEntity neEntity);
-    NeEntity toeEntity(NeModel neModel);
 
+    NeEntity toEntity(NeModel neModel);
 }

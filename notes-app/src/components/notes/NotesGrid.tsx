@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
-import { Note, NoteCard } from "./NoteCard";
+import { NoteCard } from "./NoteCard";
 import { NoteSkeleton } from "./NoteSkeleton";
+import { Note } from "@/types";
 
 interface NotesGridProps {
   notes?: Note[];

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -16,22 +17,18 @@ public class NeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "BINARY(8)")
+    @Column(columnDefinition = "BINARY(16)")
     private UUID id;
     private String title;
-    private String description;
-    private LocalDateTime created;
-    private LocalDateTime updated;
+    @Column(columnDefinition = "TEXT")
+    private String content;
+    private LocalDateTime date;
+    private String tags;
 
-
-    @PreUpdate
-    private void preUpdate() {
-        updated = LocalDateTime.now();
-    }
 
     @PrePersist
     private void prePersist() {
-        created = LocalDateTime.now();
+        date = LocalDateTime.now();
     }
 
 }

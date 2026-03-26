@@ -21,27 +21,34 @@ public class NeServiceImpl implements NeRepository {
 
     @Override
     public NeModel save(NeModel neModel) {
-        NeEntity entity = mapper.toeEntity(neModel);
+        NeEntity entity = mapper.toEntity(neModel);
         return mapper.toModel(jpa.save(entity));
     }
 
     @Override
     public NeModel update(UUID id, NeModel neModel) {
-        NeEntity neEntity = jpa.findById(id).orElseThrow(() -> new EntityNotFoundException("NeEntity not found " + id));
+        NeEntity neEntity = jpa.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("NeEntity not found " + id));
+
         neEntity.setTitle(neModel.getTitle());
-        neEntity.setDescription(neModel.getDescription());
+        neEntity.setContent(neModel.getContent());
+
         return mapper.toModel(jpa.save(neEntity));
     }
 
     @Override
     public void delete(UUID id) {
-        NeEntity neEntity = jpa.findById(id).orElseThrow(() -> new EntityNotFoundException("NeEntity not found " + id));
+        NeEntity neEntity = jpa.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("NeEntity not found " + id));
+
         jpa.delete(neEntity);
     }
 
     @Override
     public List<NeModel> findAll() {
-        List<NeEntity> all = jpa.findAll();
-        return all.stream().map(neEntity -> mapper.toModel(neEntity)).toList();
+        return jpa.findAll()
+                .stream()
+                .map(mapper::toModel)
+                .toList();
     }
 }

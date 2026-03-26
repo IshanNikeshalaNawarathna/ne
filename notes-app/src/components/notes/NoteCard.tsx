@@ -1,14 +1,8 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { Note } from "@/types";
 
-export interface Note {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-  tags: string[];
-}
 
 export function NoteCard({ note, onClick }: { note: Note; onClick: () => void }) {
   return (
@@ -28,18 +22,16 @@ export function NoteCard({ note, onClick }: { note: Note; onClick: () => void })
         {note.content}
       </p>
       <div className="mt-4 flex items-center justify-between pt-4 border-t border-border/50">
-        <span className="text-xs text-muted-foreground/70 font-medium">{note.date}</span>
+        <span className="text-xs text-muted-foreground/70 font-medium">          {new Date(note.date).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })}</span>
         <div className="flex gap-2 font-medium">
-          {note.tags.slice(0, 2).map((tag, i) => (
-            <span key={i} className="px-2 py-1 bg-accent text-accent-foreground text-[10px] rounded-md uppercase tracking-wider">
-              {tag}
+         
+            <span  className="px-2 py-1 bg-accent text-accent-foreground text-[10px] rounded-md uppercase tracking-wider">
+              {note.tags}
             </span>
-          ))}
-          {note.tags.length > 2 && (
-            <span className="px-2 py-1 bg-accent text-accent-foreground text-[10px] rounded-md uppercase tracking-wider">
-              +{note.tags.length - 2}
-            </span>
-          )}
         </div>
       </div>
     </motion.div>
