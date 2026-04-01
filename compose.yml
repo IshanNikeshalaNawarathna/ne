@@ -1,0 +1,51 @@
+services:
+
+  backend:
+    build:
+      context: ./ne
+      dockerfile: Dockerfile
+    container_name: notes-backend
+    ports:
+      - "8080:8080"
+    env_file:
+    - ./env/database.env
+    depends_on:
+      - mysql
+    networks:
+      - notes-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+     context: ./notes-app
+     dockerfile: Dockerfile
+    container_name: notes-frontend
+    ports:
+    - "3000:3000"
+    environment:
+    - NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1/
+    depends_on:
+    - backend
+    networks:
+    - notes-network
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    env_file:
+      - ./env/database.env
+    ports:
+      - "3300:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - notes-network
+    restart: unless-stopped
+
+networks:
+  notes-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
