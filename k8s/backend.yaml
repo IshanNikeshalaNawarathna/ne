@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: note-backend-deployment
+  labels:
+    app: note-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: note-backend
+  template:
+    metadata:
+      labels:
+        app: note-backend
+    spec:
+      containers:
+        - name: note-backend
+          image: note-backend:latest
+          ports:
+          - containerPort: 8080
+          env:
+          - name: SPRING_DATASOURCE_URL
+            valueFrom:
+             configMapKeyRef:
+               name: mysqldb-configmap
+               key: database_url  
+          - name: SPRING_DATASOURCE_USERNAME
+            value: ne_user
+          - name: SPRING_DATASOURCE_PASSWORD
+            valueFrom:
+             secretKeyRef:
+               name: mysqldb-secret
+               key: mysql-root-password  
+          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+            value: update     
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: note-backend-service
+spec:
+  selector:
+    app: note-backend
+  ports:
+   - port: 8080
+     targetPort: 8080
+  
