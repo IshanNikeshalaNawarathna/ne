@@ -41,7 +41,7 @@ jobs:
 
     - name: Push backend Image
       run: |
-        docker push {{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
+        docker push ${{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
 
 
     - name: Set up Node
@@ -61,7 +61,7 @@ jobs:
 
     - name: Push frontend Image
       run: |
-        docker push {{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
+        docker push ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
 
 
     - name: Set up Kubecofig
