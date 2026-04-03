@@ -54,7 +54,7 @@ jobs:
         npm run build 
 
     - name: Build frontend Docker Image
-      run:  docker build -t notes-frontend:latest ./notes-app
+      run:  docker build -t ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest ./notes-app
 
     - name: Push frontend Image
       run:  docker push ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
