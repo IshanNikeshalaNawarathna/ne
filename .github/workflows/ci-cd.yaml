@@ -49,13 +49,13 @@ jobs:
 
     - name: Push frontend Image
       run: |
-        docker push {{ secret.DOKCER_USERNAME }}/notes-frontend:latest        
+        docker push {{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
 
 
     - name: Set up Kubecofig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ secret.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
     - name: Test Kubernetes
       run: kubectl get pods
 
