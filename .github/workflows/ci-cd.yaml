@@ -61,10 +61,11 @@ jobs:
 
     - name: Set up Kubecofig
       run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
-    - name: Test Kubernetes
-      run: kubectl get pods
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig
+        export KUBECONFIG=$PWD/kubeconfig
+
+    - name: Deploy to Kubernetes
+      run: kubectl apply -f k8s/
 
     - name: Deploy
       run: kubectl apply -f k8s/      
