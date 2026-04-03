@@ -59,14 +59,3 @@ jobs:
     - name: Push frontend Image
       run:  docker push ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
 
-    - name: Set up Kubecofig
-      run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
-        export KUBECONFIG=$HOME/.kube/config
-
-    - name: Test cluster
-      run: kubectl get nodes
-
-    - name: Deploy
-      run: kubectl apply -f k8s/
