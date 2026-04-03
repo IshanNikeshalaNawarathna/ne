@@ -36,12 +36,10 @@ jobs:
         ./mvnw clean package
 
     - name: Build backend Docker Image
-      run: |
-        docker build -t notes-backend:latest ./ne
+      run:  docker build -t notes-backend:latest ./ne
 
     - name: Push backend Image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
+      run:  docker push ${{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
 
 
     - name: Set up Node
@@ -56,12 +54,10 @@ jobs:
         npm run build 
 
     - name: Build frontend Docker Image
-      run: |
-        docker build -t notes-frontend:latest ./notes-app
+      run:  docker build -t notes-frontend:latest ./notes-app
 
     - name: Push frontend Image
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
+      run:  docker push ${{ secrets.DOCKER_USERNAME }}/notes-frontend:latest        
 
 
     - name: Set up Kubecofig
