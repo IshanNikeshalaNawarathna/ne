@@ -37,12 +37,17 @@ jobs:
 
     - name: Build backend Docker Image
       run: |
-        docker build -t notes-backend:latest -f ./ne
+        docker build -t notes-backend:latest ./ne
 
     - name: Push backend Image
       run: |
         docker push {{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
 
+
+    - name: Set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '22.18.0'
 
     - name: Build frontend
       run: |
@@ -52,7 +57,7 @@ jobs:
 
     - name: Build frontend Docker Image
       run: |
-        docker build -t notes-frontend:latest -f ./notes-app
+        docker build -t notes-frontend:latest ./notes-app
 
     - name: Push frontend Image
       run: |
