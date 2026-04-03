@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: note-backend-deployment
+  name: notes-backend-deployment
   labels:
-    app: note-backend
+    app: notes-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: note-backend
+      app: notess-backend
   template:
     metadata:
       labels:
-        app: note-backend
+        app: notes-backend
     spec:
       containers:
-        - name: note-backend
-          image: note-backend:latest
+        - name: notes-backend
+          image: notes-backend:latest
           ports:
           - containerPort: 8080
           env:
@@ -39,10 +39,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: note-backend-service
+  name: notes-backend-service
 spec:
   selector:
-    app: note-backend
+    app: notes-backend
   ports:
    - port: 8080
      targetPort: 8080
