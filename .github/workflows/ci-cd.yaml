@@ -21,3 +21,43 @@ jobs:
   
     - name: Verify Docker
       run: docker info
+
+
+    - name: Build Backend
+      run: |
+        cd ne
+        .mvn/ clean package
+
+    - name: Build backend Docker Image
+      run: |
+        docker build -t notes-backend:latest -f ne/Dockerfile .
+
+    - name: Push backend Image
+      run: |
+        docker push {{ secrets.DOCKER_USERNAME }}/notes-backend:latest  
+
+
+    - name: Build frontend
+      run: |
+        cd notes-app
+        npm install
+        npm run build 
+
+    - name: Build frontend Docker Image
+      run: |
+        docker build -t notes-frontend:latest -f notes-app/Dockerfile .
+
+    - name: Push frontend Image
+      run: |
+        docker push {{ secret.DOKCER_USERNAME }}/notes-frontend:latest        
+
+
+    - name: Set up Kubecofig
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secret.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+    - name: Test Kubernetes
+      run: kubectl get pods
+
+    - name: Deploy
+      run: kubectl apply -f k8s/      
