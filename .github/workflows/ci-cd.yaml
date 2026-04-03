@@ -26,6 +26,7 @@ jobs:
     - name: Build Backend
       run: |
         cd ne
+        chmod +x mvnw
         ./mvnw clean package
 
     - name: Build backend Docker Image
