@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: note-frontend-deployment
+  name: notes-frontend-deployment
   labels:
-    app: note-frontend
+    app: notes-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: note-frontend
+      app: notes-frontend
   template:
     metadata:
       labels:
-        app: note-frontend
+        app: notes-frontend
     spec:
       containers:
-        - name: note-frontend
-          image: note-frontend:latest
+        - name: notes-frontend
+          image: notes-frontend:latest
           ports:
           - containerPort: 3000
           env:
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: note-frontend-service
+  name: notes-frontend-service
 spec:
   type: NodePort
   selector:
-    app: note-frontend
+    app: notes-frontend
   ports:
    - port: 3000
      targetPort: 3000
