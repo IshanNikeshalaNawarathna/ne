@@ -37,7 +37,7 @@ jobs:
 
     - name: Build backend Docker Image
       run: |
-        docker build -t notes-backend:latest -f ne/Dockerfile .
+        docker build -t notes-backend:latest -f ./ne
 
     - name: Push backend Image
       run: |
@@ -52,7 +52,7 @@ jobs:
 
     - name: Build frontend Docker Image
       run: |
-        docker build -t notes-frontend:latest -f notes-app/Dockerfile .
+        docker build -t notes-frontend:latest -f ./notes-app
 
     - name: Push frontend Image
       run: |
