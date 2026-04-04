@@ -19,27 +19,26 @@ spec:
           image: ishannikeshala99/notes-backend:latest
           ports:
             - containerPort: 8080
-      env:
-        - name: MYSQL_DATABASE
-          valueFrom:
-            configMapKeyRef:
-              name: mysqldb-configmap
-              key: dbname
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/nedb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
 
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mysqldb-secret
-              key: username
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-username
+                  key: username
 
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-            name: mysqldb-secret
-            key: password
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-password
+                  key: password
 
-        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-          value: update
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: update
+
+
 ---
 apiVersion: v1
 kind: Service
