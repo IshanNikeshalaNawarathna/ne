@@ -8,7 +8,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: notess-backend
+      app: notes-backend
   template:
     metadata:
       labels:
@@ -16,25 +16,30 @@ spec:
     spec:
       containers:
         - name: notes-backend
-          image: notes-backend:latest
+          image: ishannikeshala99/notes-backend:latest
           ports:
-          - containerPort: 8080
-          env:
-          - name: SPRING_DATASOURCE_URL
-            valueFrom:
-             configMapKeyRef:
-               name: mysqldb-configmap
-               key: database_url  
-          - name: SPRING_DATASOURCE_USERNAME
-            value: ne_user
-          - name: SPRING_DATASOURCE_PASSWORD
-            valueFrom:
-             secretKeyRef:
-               name: mysqldb-secret
-               key: mysql-root-password  
-          - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-            value: update     
+            - containerPort: 8080
+      env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: mysqldb-configmap
+              key: dbname
 
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysqldb-secret
+              key: username
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+            name: mysqldb-secret
+            key: password
+
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: update
 ---
 apiVersion: v1
 kind: Service
@@ -44,6 +49,7 @@ spec:
   selector:
     app: notes-backend
   ports:
-   - port: 8080
-     targetPort: 8080
-  
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
