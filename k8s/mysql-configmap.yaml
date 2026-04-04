@@ -3,4 +3,6 @@ kind: ConfigMap
 metadata:
   name: mysqldb-configmap
 data:
-  database_url: "jdbc:mysql://mysqldb-service:3306/nedb?createDatabaseIfNotExist=true"
+  host: mysql
+  dbname: nedb
+  

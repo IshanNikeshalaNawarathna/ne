@@ -1,21 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysqldb-deployment
+  name: mysql
   labels:
-    app: mysqldb
+    app: mysql
+    tier: database
 spec:
   replicas: 1
+
+  strategy:
+    type: Recreate
+
   selector:
     matchLabels:
-      app: mysqldb
+      app: mysql
+      tier: database
+
   template:
     metadata:
       labels:
-        app: mysqldb
+        app: mysql
+        tier: database
     spec:
       containers:
-        - name: mysqldb
+        - name: mysql
           image: mysql:8.0
           ports:
             - containerPort: 3306
@@ -24,7 +32,20 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysqldb-secret
-                  key: mysql-root-password
+                  key: root-password
+
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysqldb-configmap
+                  key: dbname
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysqldb-secret
+                  key: password      
+
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: mysql-pv
@@ -37,11 +58,47 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysqldb-service
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
 spec:
-  selector:
-    app: mysqldb
   ports:
-    - protocol: TCP
-      port: 3306
+    - port: 3306
       targetPort: 3306
+  selector:
+    app: mysql
+    tier: database
+  clusterIP: None  
+
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  labels:
+    app: mysql
+    tier: database
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"  
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  labels:
+    app: mysql
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
