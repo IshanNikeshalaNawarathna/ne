@@ -7,15 +7,12 @@ metadata:
     tier: database
 spec:
   replicas: 1
-
   strategy:
     type: Recreate
-
   selector:
     matchLabels:
       app: mysql
       tier: database
-
   template:
     metadata:
       labels:
@@ -33,18 +30,21 @@ spec:
                 secretKeyRef:
                   name: mysql-root-password
                   key: password
-
             - name: MYSQL_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: mysqldb-configmap
                   key: dbname
-
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-username
+                  key: username
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mysql-password
-                  key: password      
+                  key: password
 
           volumeMounts:
             - mountPath: /var/lib/mysql
@@ -69,8 +69,7 @@ spec:
   selector:
     app: mysql
     tier: database
-  clusterIP: None  
-
+  clusterIP: None
 
 ---
 apiVersion: v1
@@ -84,9 +83,9 @@ spec:
   capacity:
     storage: 100Mi
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   hostPath:
-    path: "/mnt/data"  
+    path: "/mnt/data"
 
 ---
 apiVersion: v1
