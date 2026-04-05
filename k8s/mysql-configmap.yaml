@@ -3,6 +3,4 @@ kind: ConfigMap
 metadata:
   name: mysqldb-configmap
 data:
-  host: mysql
   dbname: nedb
-  
