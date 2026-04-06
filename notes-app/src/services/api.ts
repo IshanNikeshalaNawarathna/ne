@@ -15,12 +15,12 @@ export default api;
 
 export async function createNote(note: any) : Promise<void> {
   console.log("Creating Note:", note);
-  const response = await api.post("/ne", note);
+  const response = await api.post("/ne/", note);
   console.log("Create Note Response:", response.data);
   return response.data;
 }
 export async function getNotes() : Promise<Note[]> {
-  const response = await api.get("/ne");
+  const response = await api.get("/ne/");
   console.log("Get Notes Response:", response.data);
   return response.data;
 }

@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: backend-configmap
 data:
-  backend_url: http://n192.168.49.2:30007/api/v1
+  backend_url: http://192.168.49.2:30007/api/v1
