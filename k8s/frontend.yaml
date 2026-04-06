@@ -26,6 +26,12 @@ spec:
                name: backend-configmap
                key: backend_url
 
+          - name: API_URL
+            valueFrom:
+             configMapKeyRef:
+               name: backend-configmap
+               key: backend_url   
+
 ---
 apiVersion: v1
 kind: Service
