@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: backend-configmap
 data:
-  backend_url: http://notes-backend-service:8080/api/v1/
+  backend_url: http://notes-backend-service:8080/api/v1
