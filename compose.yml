@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: notes-backend
     ports:
-      - "8080:8080"
+      - "8081:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
@@ -25,7 +25,8 @@ services:
     ports:
     - "3000:3000"
     environment:
-    - NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1/
+    - NEXT_PUBLIC_API_URL=http://localhost:8081/api/v1
+    - API_URL=http://backend:8080/api/v1
     depends_on:
     - backend
     networks:

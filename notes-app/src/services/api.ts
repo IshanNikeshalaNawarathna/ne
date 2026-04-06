@@ -1,10 +1,15 @@
 import axios from "axios";
 import { Note } from "@/types";
 
+const baseURL = typeof window === "undefined"
+  ? process.env.API_URL            // server-side: Docker hostname
+  : process.env.NEXT_PUBLIC_API_URL; // client-side: localhost
+
 const api = axios.create({
- baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: { 'Content-Type': 'application/json', },
+  baseURL,
+  headers: { "Content-Type": "application/json" },
 });
+
 
 export default api;
 
