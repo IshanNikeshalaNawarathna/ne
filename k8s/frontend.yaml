@@ -21,16 +21,10 @@ spec:
           - containerPort: 3000
           env:
           - name: NEXT_PUBLIC_API_URL
-            valueFrom:
-             configMapKeyRef:
-               name: backend-configmap
-               key: backend_url
+            value: "http://192.168.49.2:30007"
 
           - name: API_URL
-            valueFrom:
-             configMapKeyRef:
-               name: backend-api-configmap
-               key: api_url   
+            value: "http://notes-backend-service:8080"  
 
 ---
 apiVersion: v1
