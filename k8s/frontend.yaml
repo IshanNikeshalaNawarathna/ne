@@ -30,7 +30,7 @@ spec:
             valueFrom:
              configMapKeyRef:
                name: backend-configmap
-               key: backend_url   
+               key: api_url   
 
 ---
 apiVersion: v1
