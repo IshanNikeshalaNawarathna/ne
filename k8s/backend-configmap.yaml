@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: backend-configmap
 data:
-  backend_url: http://192.168.49.2:30007/api/v1
+  next_public_api_url: http://192.168.49.2:30007
+  api_url: http://notes-backend-service:8080
