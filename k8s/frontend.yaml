@@ -29,7 +29,7 @@ spec:
           - name: API_URL
             valueFrom:
              configMapKeyRef:
-               name: backend-configmap
+               name: backend-api-configmap
                key: api_url   
 
 ---
