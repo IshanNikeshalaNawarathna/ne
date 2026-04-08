@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = {"http://localhost:3000","http://192.168.49.2:30008","*"})
+//@CrossOrigin(origins = {"http://localhost:3000","http://192.168.49.2:30008","*"})
 @RestController
 @RequestMapping("/api/v1/ne")
 @RequiredArgsConstructor
@@ -30,7 +30,7 @@ public class NeController {
     private final NeDtoMapper mapper;
 
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Note> saveNote(@RequestBody Note neRequest) {
         System.out.println("note " + neRequest);
         NeModel model = mapper.toModel(neRequest);
@@ -49,7 +49,7 @@ public class NeController {
         return ResponseEntity.ok(mapper.toDto(update.update(id, model)));
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<Note>> getAllNotes() {
         List<NeModel> all = list.findAll();
         List<Note> allList = all.stream().map(neModel -> mapper.toDto(neModel)).toList();
