@@ -17,14 +17,13 @@ spec:
       containers:
         - name: notes-frontend
           image: ishannikeshala99/notes-frontend:latest
+          imagePullPolicy: Always 
           ports:
           - containerPort: 3000
           env:
           - name: NEXT_PUBLIC_API_URL
-            value: "http://192.168.49.2:30007"
+            value: http://192.168.49.2:30009
 
-          - name: API_URL
-            value: "http://notes-backend-service:8080"  
 
 ---
 apiVersion: v1
