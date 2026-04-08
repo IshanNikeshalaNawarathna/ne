@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: notes-backend
     ports:
-      - "8081:8080"
+      - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
@@ -19,18 +19,17 @@ services:
 
   frontend:
     build:
-     context: ./notes-app
-     dockerfile: Dockerfile
+      context: ./notes-app
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080
     container_name: notes-frontend
     ports:
-    - "3000:3000"
-    environment:
-    - NEXT_PUBLIC_API_URL=http://localhost:8081
-    - API_URL=http://backend:8080
+      - "3000:3000"
     depends_on:
-    - backend
+      - backend
     networks:
-    - notes-network
+      - notes-network
     restart: unless-stopped
 
   mysql:
