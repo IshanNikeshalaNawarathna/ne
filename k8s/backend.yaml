@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: notes-backend
+        tier: notes-backend-service
     spec:
       containers:
         - name: notes-backend
@@ -42,6 +43,7 @@ spec:
   type: ClusterIP
   selector:
     app: notes-backend
+    tier: notes-backend-service
   ports:
     - port: 80
       targetPort: 8080
