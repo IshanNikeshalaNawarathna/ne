@@ -2,27 +2,23 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: notes-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          # Backend API
-          - path: /api/v1/ne(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/v1/ne
+            pathType: Prefix
             backend:
               service:
                 name: notes-backend-service
                 port:
-                  number: 8080
+                  number: 80
 
-          # Frontend
-          - path: /()(.*)
-            pathType: ImplementationSpecific
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: notes-frontend-service
                 port:
-                  number: 3000
+                  number: 80
