@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notes-backend-deployment
-  labels:
-    app: notes-backend
 spec:
   replicas: 1
   selector:
@@ -14,7 +12,6 @@ spec:
       labels:
         app: notes-backend
     spec:
-    
       containers:
         - name: notes-backend
           image: ishannikeshala99/notes-backend:latest
@@ -42,10 +39,9 @@ kind: Service
 metadata:
   name: notes-backend-service
 spec:
+  type: ClusterIP
   selector:
     app: notes-backend
   ports:
-    - protocol: TCP
-      port: 8080
+    - port: 80
       targetPort: 8080
-  type: ClusterIP
