@@ -19,9 +19,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
-          env:
-          - name: NEXT_PUBLIC_API_URL
-            value: '/'
 
 ---
 apiVersion: v1
@@ -29,10 +26,10 @@ kind: Service
 metadata:
   name: notes-frontend
 spec:
-  type: ClusterIP
   selector:
     app: notes-frontend
     tier: notes-frontend
   ports:
     - port: 80
       targetPort: 3000
+  type: LoadBalancer    
