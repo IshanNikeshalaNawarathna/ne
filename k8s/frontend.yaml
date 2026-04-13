@@ -21,7 +21,7 @@ spec:
             - containerPort: 3000
           env:
           - name: NEXT_PUBLIC_API_URL
-            value: 'http://127.0.0.1:10198'
+            value: 'http://notes.local'
 
 ---
 apiVersion: v1
