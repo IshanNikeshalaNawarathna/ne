@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "*")
+// @CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:3000", "*"})
 @RestController
 @RequestMapping("/ne")
 @RequiredArgsConstructor
