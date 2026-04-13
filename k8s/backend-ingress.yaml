@@ -8,7 +8,7 @@ spec:
     - host: notes.local 
       http:
         paths:
-          - path: api/v1/ne
+          - path: /api/v1(/|$)(.*)
             pathType: Prefix
             backend:
               service:
@@ -20,6 +20,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: notes-frontend-service
+                name: notes-frontend
                 port:
                   number: 80

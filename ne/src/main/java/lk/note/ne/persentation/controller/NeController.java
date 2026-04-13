@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/v1/ne")
+@RequestMapping("/ne")
 @RequiredArgsConstructor
 public class NeController {
 
