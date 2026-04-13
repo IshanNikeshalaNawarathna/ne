@@ -21,7 +21,7 @@ spec:
             - containerPort: 3000
           env:
           - name: NEXT_PUBLIC_API_URL
-            value: '/api/v1'
+            value: '/'
 
 ---
 apiVersion: v1
