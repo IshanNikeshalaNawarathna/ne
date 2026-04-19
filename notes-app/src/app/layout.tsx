@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Antigravity Notes",
+  title: "Notes App",
   description: "A futuristic modern notes application",
 };
 

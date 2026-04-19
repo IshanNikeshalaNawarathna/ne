@@ -17,7 +17,7 @@ export function Sidebar() {
         <div className="w-8 h-8 rounded-lg bg-primary shadow-[0_0_15px_var(--color-primary)] opacity-90 flex items-center justify-center">
           <Book className="w-4 h-4 text-primary-foreground" />
         </div>
-        <span className="font-bold text-lg tracking-tight">Antigravity</span>
+        <span className="font-bold text-lg tracking-tight">Note</span>
       </div>
 
       <nav className="flex-1 px-3 space-y-1">
