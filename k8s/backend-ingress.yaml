@@ -5,10 +5,9 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: notes.local 
-      http:
+    - http:
         paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
